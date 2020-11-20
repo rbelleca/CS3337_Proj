@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+   Book Detail
+{% endblock title %}
+
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{ item.link }}"> {{ item.item }} </a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center"> {{ book.name }} Page </h1>
+<table align="center" border="2" width="500">
+        <tr>
+            <th width="220">Picture</th>
+            <th>Name</th>
+            <th>Author</th>
+
+        </tr>
+        <tr>
+            <td><center><img src="{% static book.pic_path %}" width="60" height="80"></center></td>
+            <td>{{ book.name }}</td>
+            <td>Sample Author</td>
+        </tr>
+</table>
+<br><br>
+<table align="center" border="2" width="500">
+        <tr>
+            <th colspan="4" style="text-align: center">Sellers of This Book</th>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <th>Contact Info</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>Sample Seller #1</td>
+            <td>(650)309-9926</td>
+            <td>69</td>
+        </tr>
+</table>
+{% endblock content %}
