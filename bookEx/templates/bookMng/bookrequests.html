@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Book Requests
+{% endblock title%}
+
+{% block sidenav %}
+  {% for item in item_list %}
+    <li>
+        <a href="{{ item.link }}"> {{ item.item }} </a>
+    </li>
+  {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center">Book Requests Page</h1>
+<table align="center" border="2" width="500">
+    <tr>
+        <th>
+            Book Name
+        </th>
+        <th>
+            Request Date
+        </th>
+        <th>
+            Requested By
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    {% for request in requests %}
+        <tr>
+            <td>
+                {{request.name}}
+            </td>
+            <td>
+                {{ request.publishdate }}
+            </td>
+            <td>
+                {{ request.username }}
+            </td>
+            <td>
+                <a href="request_delete/{{ request.id }}">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
+

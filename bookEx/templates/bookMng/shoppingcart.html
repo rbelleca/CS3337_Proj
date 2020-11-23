@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+My Books
+{% endblock title%}
+
+{% block sidenav %}
+  {% for item in item_list %}
+    <li>
+        <a href="{{ item.link }}"> {{ item.item }} </a>
+    </li>
+  {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center">My Shopping Cart</h1>
+<table align="center" border="2" width="500">
+    {% for book in books %}
+        <tr>
+            <td>
+                <a href="book_detail/{{ book.bookId.id }}">
+                    {{book.name}}
+                </a>
+            </td>
+            <td>
+                {{ book.adddate }}
+            </td>
+            <td>
+                {{ book.price }}
+            </td>
+            <td>
+                <a href="cart_delete/{{ book.id }}">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h2>Total Price: ${{ totalPrice }}</h2>
+{% endblock content %}
+
