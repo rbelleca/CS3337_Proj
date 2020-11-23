@@ -5,14 +5,12 @@
    Home
 {% endblock title %}
 
-{% block sidenav %}
-    {% for item in item_list %}
-        <li>
-            <a href="{{ item.link }}"> {{ item.item }} </a>
-        </li>
-    {% endfor %}
-{% endblock sidenav %}
+{% block main_content %}
+<div class="text-center">
+    <h1> Welcome to BookHub! </h1>
+</div>
 
-{% block content %}
-<h1 align="center"> Welcome to Book Exchange System </h1>
-{% endblock content %}
+{% endblock main_content %}
+<!--{% block content %}-->
+<!--<h1 align="center"> Welcome to Book Exchange System </h1>-->
+<!--{% endblock content %}-->

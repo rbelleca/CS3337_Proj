@@ -5,47 +5,104 @@
     <meta charset="UTF-8">
     <title>
         {% block title %}
-        title
+
         {% endblock title %}
     </title>
-    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'bootstrap.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="wrapper">
-    <header id="header">
-        <div id="logo">
-            <img src="{% static 'logo.jpg' %}" width="100" height="100" alt="" />
-            <span style="float: right;">
-                {% if user.is_authenticated %}
-                    {{ user.username }}
-                    <a href="{% url 'logout' %}?next=/"> Logout </a>
-                {% else %}
-                    NOT Logged in.
-                    <a href="{% url 'login' %}?next=/"> Login </a>
-                {% endif %}
-            </span>
-        </div>
-        <div id="topbanner">
-            <img src="{% static 'topbanner.jpg' %}" alt="" width="800" height="100"/>
-        </div>
-    </header>
-    <aside id="leftsidebar">
-        <nav id="nav">
-             <ul>
-                {% block sidenav %}
-                  <li>Menu 1</li>
-                  <li>Menu 2</li>
-                  <li>Menu 3</li>
-                {% endblock sidenav %}
-             </ul>
-        </nav>
-    </aside>
-    <section id="main">
-            {% block content %}
-               Hello
-            {% endblock content %}
-    </section>
-    <footer id="footer"> CS3337 Django Web System </footer>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">BookHub</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto text-light">
+        {% block navbar_item %}
+        <li class="nav-item active">
+            <a class="nav-link text-primary" href="/home">Home
+            <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/displaybooks">Display Books</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/postbook">Request Books</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/mybooks">Profile</a>
+        </li>
+<!--      <li class="nav-item dropdown">-->
+<!--        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>-->
+<!--        <div class="dropdown-menu">-->
+<!--          <a class="dropdown-item" href="#">Action</a>-->
+<!--          <a class="dropdown-item" href="#">Another action</a>-->
+<!--          <a class="dropdown-item" href="#">Something else here</a>-->
+<!--          <div class="dropdown-divider"></div>-->
+<!--          <a class="dropdown-item" href="#">Separated link</a>-->
+<!--        </div>-->
+<!--      </li>-->
+        {% endblock navbar_item %}
+    </ul>
+
+    <!--    Search Feature -->
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <div class="ml-5">
+        <span style="float: right;">
+            {% if user.is_authenticated %}
+                {{ user.username }}
+                <a href="{% url 'logout' %}?next=/"> Logout </a>
+            {% else %}
+                NOT Logged in.
+                <a href="{% url 'login' %}?next=/"> Login </a>
+            {% endif %}
+
+        </span>
+    </div>
+
+  </div>
+</nav>
+
+<div class="mt-5">
+    {% block main_content %}
+
+    {% endblock main_content %}
 </div>
+
+
+
+<!--<div id="wrapper">-->
+<!--    <header id="header">-->
+<!--        <div id="logo">-->
+<!--            <img src="{% static 'logo.jpg' %}" width="100" height="100" alt="" />-->
+<!--        </div>-->
+<!--        <div id="topbanner">-->
+<!--            <img src="{% static 'topbanner.jpg' %}" alt="" width="800" height="100"/>-->
+<!--        </div>-->
+<!--    </header>-->
+<!--    <aside id="leftsidebar">-->
+<!--        <nav id="nav">-->
+<!--             <ul>-->
+<!--                {% block sidenav %}-->
+<!--                  <li>Menu 1</li>-->
+<!--                  <li>Menu 2</li>-->
+<!--                  <li>Menu 3</li>-->
+<!--                {% endblock sidenav %}-->
+<!--             </ul>-->
+<!--        </nav>-->
+<!--    </aside>-->
+<!--    <section id="main">-->
+<!--        {% block content %}-->
+<!--           Hello-->
+<!--        {% endblock content %}-->
+<!--    </section>-->
+<!--</div>-->
+
+<footer class="text-center fixed-bottom mb-5" id="footer"> CS3337 Django Web System </footer>
 </body>
 </html>

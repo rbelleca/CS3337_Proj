@@ -71,12 +71,14 @@ def displaybooks(request):
 def book_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     book.pic_path = book.picture.url[14:]
-    return render(request,
-                  'bookMng/book_detail.html',
-                  {
-                      'item_list': MainMenu.objects.all(),
-                      'book': book
-                  })
+    print(f'book_id: {book_id}')
+    if (book_id >= 1):
+        return render(request,
+                      'bookMng/book_detail.html',
+                      {
+                          'item_list': MainMenu.objects.all(),
+                          'book': book
+                      })
 
 
 @login_required(login_url=reverse_lazy('login'))
