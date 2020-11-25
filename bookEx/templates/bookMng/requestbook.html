@@ -5,13 +5,23 @@
 Request Books
 {% endblock title%}
 
-{% block sidenav %}
-  {% for item in item_list %}
-    <li>
-        <a href="{{ item.link }}"> {{ item.item }} </a>
+{% block logo %}
+<a class="navbar-brand" href="/">
+<img src= "{% static 'logoHorz.png' %}" class="" style="width: 100px">
+</a>
+{% endblock logo%}
+
+{% block navbar_item %}
+    <li class="nav-item">
+        <a class="nav-link" href="/displaybooks">Display Books</a>
     </li>
-  {% endfor %}
-{% endblock sidenav %}
+    <li class="nav-item active">
+        <a class="nav-link text-primary" href="/requestbook">Request Books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/mybooks">Profile</a>
+    </li>
+{% endblock navbar_item %}
 
 {% block content %}
 <h1> Request Book </h1>

@@ -1,3 +1,4 @@
+from django.contrib.admin import AdminSite
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from  .models import MainMenu
@@ -22,6 +23,29 @@ from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+class MainMenuAdminSite(AdminSite):
+    def get_app_list(self, request):
+        """
+        Return a sorted list of all the installed apps that have been
+        registered in this site.
+        """
+        ordering = {
+            "Display Books": 1,
+            "Request Book": 2,
+            "My Books": 3,
+            "Shopping Cart": 4,
+            "Post Book": 5,
+        }
+        app_dict = self._build_app_dict(request)
+        # a.sort(key=lambda x: b.index(x[0]))
+        # Sort the apps alphabetically.
+        app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
+
+        # Sort the models alphabetically within each app.
+        for app in app_list:
+            app['models'].sort(key=lambda x: ordering[x['name']])
+
+        return app_list
 
 def index(request):
     # return HttpResponse("<h1 align='center'>Hello World</h1>")
@@ -200,7 +224,9 @@ class Register(CreateView):
 @login_required(login_url=reverse_lazy('login'))
 def shoppingcart(request):
     books = UserCart.objects.filter(username=request.user)
-    totalPrice = list(UserCart.objects.aggregate(Sum('price')).values())[0]
+    # print(f'User: {request.user}')
+    # print(books)
+    totalPrice = list(books.aggregate(Sum('price')).values())[0]
     return render(request,
         'bookMng/shoppingcart.html',
         {

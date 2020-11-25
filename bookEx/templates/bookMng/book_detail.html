@@ -5,11 +5,15 @@
    Book Detail
 {% endblock title %}
 
+{% block logo %}
+<a class="navbar-brand" href="/">
+<img src= "{% static 'logoHorz.png' %}" class="" style="width: 100px">
+</a>
+{% endblock logo%}
+
 {% block navbar_item %}
-    <li class="nav-item">
-        <a class="nav-link" href="/home">Home
-        <span class="sr-only">(current)</span>
-        </a>
+    <li>
+        <a href="{{ item.link }}"> {{ item.item }} </a>
     </li>
     <li class="nav-item active">
         <a class="nav-link text-primary" href="/displaybooks">Display Books</a>
@@ -18,7 +22,7 @@
         <a class="nav-link" href="/postbook">Request Books</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" href="/mybooks">Profile</a>
     </li>
 {% endblock navbar_item %}
 
@@ -29,14 +33,16 @@
         <tr>
             <th width="220">Picture</th>
             <th>Name</th>
-            <th>Author</th>
+            <th>Options</th>
 
         </tr>
     </thead>
     <tr>
         <td><center><img src="{% static book.pic_path %}" width="60" height="80"></center></td>
         <td>{{ book.name }}</td>
-        <td>Sample Author</td>
+        <td>
+            <a href="/book_addCart/{{book.id}}">Add to Cart</a>
+        </td>
     </tr>
 </table>
 <br><br>

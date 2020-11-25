@@ -6,15 +6,18 @@
 {% endblock title %}
 
 
-{% block content %}
-<h1> Post Book </h1>
-{% if submitted %}
-<p>
-    Post Successfully!
-</p>
-{% else %}
+{% block main_content %}
+<div class="text-center">
+    <h2> Post Book </h2>
+    <p> You can sell your book here. Your entry will automatically be entered in the market. Thank you!</p>
+</div>
+
+<div class="text-center">
+    {% if submitted %}
+    <p> Post Successfully! </p>
+    {% else %}
     <form action="" enctype="multipart/form-data" method="post" novalidate>
-        <table>
+        <table class="mx-auto">
             {{ form.as_table }}
             <tr>
                 <td colspan="2">
@@ -24,5 +27,7 @@
         </table>
         {% csrf_token %}
     </form>
-{% endif %}
-{% endblock content %}
+    {% endif %}
+</div>
+
+{% endblock main_content %}
