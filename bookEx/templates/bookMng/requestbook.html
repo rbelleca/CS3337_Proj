@@ -23,15 +23,19 @@ Request Books
     </li>
 {% endblock navbar_item %}
 
-{% block content %}
-<h1> Request Book </h1>
+{% block main_content %}
+<div class="text-center">
+    <h2> Request Book Page </h2>
+    <p> If the book you wanted is not on the market, don't worry! You can request it here. <br> People who has the book can sell it to you.</p>
+</div>
+
 {% if submitted %}
     <p align="center">
         Post Successfully!
     </p>
 {% else %}
     <form action="" enctype="multipart/form-data" method="post" novalidate>
-        <table>
+        <table class="mx-auto text-center">
             {{ form.as_table }}
             <tr>
                 <td colspan="2">
@@ -43,5 +47,5 @@ Request Books
     </form>
 {% endif %}
 
-{% endblock content %}
+{% endblock main_content %}
 

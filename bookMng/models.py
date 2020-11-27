@@ -39,11 +39,13 @@ class Request(models.Model):
 
 class Review(models.Model):
     bookId = models.ForeignKey(Book, blank=True, null=True, on_delete=models.CASCADE)
-    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    publishdate = models.DateField(auto_now=True)
-    reviewTitle = models.CharField(max_length=200)
-    reviewDesciption = models.TextField(max_length=1000)
+    rating = models.CharField(max_length=200)
+    review = models.TextField(max_length=1000)
     username = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+    publishdate = models.DateField(auto_now=True)
+    # rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    # reviewTitle = models.CharField(max_length=200)
+
 
     def __str__(self):
         return str(self.id)

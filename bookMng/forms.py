@@ -28,6 +28,15 @@ class ReviewForm(ModelForm):
         model = Review
         fields = [
             'rating',
-            'reviewTitle',
-            'reviewDesciption',
+            'review',
         ]
+
+class SearchForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = [
+            'name',
+        ]
+        # widget = {
+        #     'name': forms.TextInput(attrs={'placeholder': 'Search'})
+        # }

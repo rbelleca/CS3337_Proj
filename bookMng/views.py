@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from  .models import MainMenu
 
-from .forms import BookForm
+from .forms import BookForm, SearchForm
 from django.http import HttpResponseRedirect
 
 from .models import Book
@@ -15,6 +15,7 @@ from .forms import ReviewForm
 from .models import Review
 
 from .models import UserCart
+from django.db.models import Q
 
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
@@ -86,14 +87,18 @@ def postbook(request):
 
 @login_required(login_url=reverse_lazy('login'))
 def displaybooks(request):
-    books = Book.objects.all()
+    form = SearchForm()
+    # books = Book.objects.all()
+    books = book_search(request)
+    print(f'WHAT: {books}')
     for b in books:
         b.pic_path = b.picture.url[14:]
     return render(request,
         'bookMng/displaybooks.html',
         {
             'item_list': MainMenu.objects.all(),
-            'books': books
+            'books': books,
+            'form': form,
         })
 
 @login_required(login_url=reverse_lazy('login'))
@@ -170,11 +175,18 @@ def book_detail(request, book_id):
     reviews = Review.objects.filter(bookId = book_id)
     book.pic_path = book.picture.url[14:]
 
+    rating = request.POST.get('rating_title', '')
+    review = request.POST.get('review', '')
+    print(f'form: {rating}, type:{type(rating)}')
+    print(f'form: {review}, type:{type(review)}')
+
     #Form for writing a review.
     submitted = False
     if request.method == 'POST':
+        print("WHATT")
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
+            print("Validated!!")
             # form.save()
             review = form.save(commit=False)
             try:
@@ -183,12 +195,12 @@ def book_detail(request, book_id):
             except Exception:
                 pass
             review.save()
-            return HttpResponseRedirect(request.path_info)
+
+            return HttpResponseRedirect('/bookdetail/<book.id>?submitted=True')
     else:
         form = ReviewForm()
         if 'submitted' in request.GET:
             submitted = True
-
     return render(request,
                   'bookMng/book_detail.html',
                   {
@@ -240,3 +252,17 @@ def cart_delete(request, cart_id):
     cartItem = UserCart.objects.get(id=cart_id)
     cartItem.delete()
     return redirect('shoppingcart')
+
+@login_required(login_url=reverse_lazy('login'))
+def book_search(request):
+    query = request.POST.get('searchbar', '')
+    print(f'query: {query}')
+    if query:
+        querySet = Q(name__icontains=query)
+        results = Book.objects.filter(querySet).distinct()
+        print(f'book_search: Returning results for {query}')
+        return results
+    else:
+        print("book_search: Return all Books")
+        # unique_books = Book.objects.all().distinct()
+        return Book.objects.all()
