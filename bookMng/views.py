@@ -175,41 +175,29 @@ def book_detail(request, book_id):
     reviews = Review.objects.filter(bookId = book_id)
     book.pic_path = book.picture.url[14:]
 
-    rating = request.POST.get('rating_title', '')
     review = request.POST.get('review', '')
-    print(f'form: {rating}, type:{type(rating)}')
-    print(f'form: {review}, type:{type(review)}')
+    rating = request.POST.get('rating_title', '')
 
-    #Form for writing a review.
-    submitted = False
-    if request.method == 'POST':
-        print("WHATT")
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            print("Validated!!")
-            # form.save()
-            review = form.save(commit=False)
-            try:
-                review.username = request.user
-                review.bookId = book
-            except Exception:
-                pass
-            review.save()
+    if (review and rating):
+        new_review = Review()
+        new_review.rating = rating
+        new_review.review = review
+        new_review.bookId = book
+        new_review.username = request.user
+        new_review.save()
+        return HttpResponseRedirect(request.path)
 
-            return HttpResponseRedirect('/bookdetail/<book.id>?submitted=True')
-    else:
-        form = ReviewForm()
-        if 'submitted' in request.GET:
-            submitted = True
+    # print(f'form: {new_review.rating}, type:{type(new_review.rating)}')
+    # print(f'form: {new_review.review}, type:{type(new_review.review)}')
+
     return render(request,
-                  'bookMng/book_detail.html',
-                  {
-                      'form': form,
-                      'item_list': MainMenu.objects.all(),
-                      'reviews': reviews,
-                      'book': book,
-                      'submitted': submitted
-                  })
+      'bookMng/book_detail.html',
+      {
+          'item_list': MainMenu.objects.all(),
+          'reviews': reviews,
+          'book': book,
+      })
+
 
 @login_required(login_url=reverse_lazy('login'))
 def book_addCart(request, book_id):

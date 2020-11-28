@@ -56,7 +56,7 @@
     <h4> Reviews </h4>
 
     <p> If you want to write a review:
-    <form method="post" id="review_form" name="review_form">
+    <form method="POST" id="review_form" name="review_form">
         <label for="rating_title">Rating Title:</label>
         <input type="radio" name="rating_title" value="Best">Best
         <input type="radio" name="rating_title" value="Great">Great
@@ -87,30 +87,15 @@
     </tr>
     {% else %}
     {% for item in reviews %}
+    <tr>
         <td>{{ item.username }} </td>
         <td>{{ item.review }} </td>
         <td>{{ item.publishdate }} </td>
         <td>{{ item.rating }} </td>
+    </tr>
 
     {% endfor %}
     {% endif %}
 </div>
 
-<!--<table class="table table-striped table-bordered mx-auto" border="2">-->
-<!--        <thead class="thead-light">-->
-<!--            <tr>-->
-<!--                <th colspan="4" style="text-align: center">Sellers of This Book</th>-->
-<!--            </tr>-->
-<!--        </thead>-->
-<!--        <tr>-->
-<!--            <th>Name</th>-->
-<!--            <th>Contact Info</th>-->
-<!--            <th>Price</th>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>Sample Seller #1</td>-->
-<!--            <td>(650)309-9926</td>-->
-<!--            <td>69</td>-->
-<!--        </tr>-->
-<!--</table>-->
 {% endblock main_content %}

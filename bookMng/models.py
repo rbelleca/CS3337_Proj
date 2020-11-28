@@ -43,6 +43,7 @@ class Review(models.Model):
     review = models.TextField(max_length=1000)
     username = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     publishdate = models.DateField(auto_now=True)
+    submitted = models.BooleanField(default=False)
     # rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     # reviewTitle = models.CharField(max_length=200)
 
