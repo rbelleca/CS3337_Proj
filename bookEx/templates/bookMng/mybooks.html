@@ -37,6 +37,11 @@
             <th class="font-weight-bold">Options</th>
         </tr>
     </thead>
+    {% if not books %}
+        <tr>
+        <td class="text-center" colspan="4">You are not selling books currently.</td>
+        </tr>
+    {% else %}
     {% for book in books %}
         <tr>
             <td>
@@ -55,5 +60,6 @@
             </td>
         </tr>
     {% endfor %}
+    {% endif %}
 </table>
 {% endblock main_content %}

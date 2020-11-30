@@ -5,8 +5,28 @@
     Post Book
 {% endblock title %}
 
+{% block logo %}
+<a class="navbar-brand" href="/">
+<img src= "{% static 'logoHorz.png' %}" class="" style="width: 100px">
+</a>
+{% endblock logo%}
+
+{% block navbar_item %}
+    <li class="nav-item active">
+        <a class="nav-link text-primary" href="/displaybooks">Display Books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/requestbook">Request Books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/mybooks">Profile</a>
+    </li>
+
+
+{% endblock navbar_item %}
 
 {% block main_content %}
+
 <div class="text-center">
     <h2> Post Book </h2>
     <p> You can sell your book here. Your entry will automatically be entered in the market. Thank you!</p>

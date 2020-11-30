@@ -5,6 +5,27 @@
 Shopping Cart
 {% endblock title%}
 
+{% block logo %}
+<a class="navbar-brand" href="/">
+<img src= "{% static 'logoHorz.png' %}" class="" style="width: 100px">
+</a>
+{% endblock logo%}
+
+{% block navbar_item %}
+    <li>
+        <a href="{{ item.link }}"> {{ item.item }} </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/displaybooks">Display Books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/postbook">Request Books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/mybooks">Profile</a>
+    </li>
+{% endblock navbar_item %}
+
 {% block main_content %}
 <div class="text-center">
     <h2> My Shopping Cart </h2>
@@ -43,6 +64,10 @@ Shopping Cart
         </tr>
     {% endfor %}
     {% endif %}
+    <tr>
+        <td colspan="3">Total</td>
+        <td>${{totalPrice}}</td>
+    </tr>
 </table>
 
 <!--<h2>Total Price: ${{ totalPrice }}</h2>-->
