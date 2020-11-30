@@ -1,3 +1,7 @@
+import random
+
+from django.db.models import Max
+
 from django.contrib.admin import AdminSite
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -49,19 +53,23 @@ class MainMenuAdminSite(AdminSite):
         return app_list
 
 def index(request):
-    # return HttpResponse("<h1 align='center'>Hello World</h1>")
-    # return render( request, 'base.html')
-    # return render(request, 'bookMng/displaybooks.html')
+    random_idx = random.randint(0, Book.objects.count()-1)
+    print(f'books count: {Book.objects.count()}')
+    print(f'random int: {random_idx}')
+    book = Book.objects.all()[random_idx]
+    book.pic_path = book.picture.url[14:]
     return render(request,
-                  'bookMng/home.html',
-                  {
-                    'item_list': MainMenu.objects.all()
-                  }
-                  )
+      'bookMng/home.html',
+      {
+        'item_list': MainMenu.objects.all(),
+        'book':book
+      }
+    )
 
 @login_required(login_url=reverse_lazy('login'))
 def postbook(request):
     submitted = False
+    #What
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
         if form.is_valid():
@@ -117,11 +125,7 @@ def mybooks(request):
 def book_delete(request, book_id):
     book = Book.objects.get(id=book_id)
     book.delete()
-    return render(request,
-        'bookMng/book_delete.html',
-        {
-            'item_list': MainMenu.objects.all(),
-        })
+    return HttpResponseRedirect('/mybooks')
 
 @login_required(login_url=reverse_lazy('login'))
 def requestbook(request):
@@ -129,7 +133,7 @@ def requestbook(request):
     if request.method == 'POST':
         form = RequestForm(request.POST, request.FILES)
         if form.is_valid():
-            #form.save()
+            # form.save()
             requests = form.save(commit=False)
             try:
                 requests.username = request.user
@@ -138,15 +142,15 @@ def requestbook(request):
             requests.save()
     else:
         form = RequestForm()
-        #if 'submitted' in request.GET:
+        # if 'submitted' in request.GET:
         #    submitted = True
     return render(request,
-                    'bookMng/requestbook.html',
-                    {
-                        'form': form,
-                        'item_list': MainMenu.objects.all(),
-                        'requests': requestList,
-                    })
+                  'bookMng/requestbook.html',
+                  {
+                      'form': form,
+                      'item_list': MainMenu.objects.all(),
+                      'requests': requestList,
+                  })
 
 @login_required(login_url=reverse_lazy('login'))
 def bookrequests(request):
@@ -219,8 +223,6 @@ class Register(CreateView):
 @login_required(login_url=reverse_lazy('login'))
 def shoppingcart(request):
     books = UserCart.objects.filter(username=request.user)
-    # print(f'User: {request.user}')
-    # print(books)
     totalPrice = list(books.aggregate(Sum('price')).values())[0]
     return render(request,
         'bookMng/shoppingcart.html',
