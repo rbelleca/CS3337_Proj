@@ -129,29 +129,28 @@ def book_delete(request, book_id):
 
 @login_required(login_url=reverse_lazy('login'))
 def requestbook(request):
-    #submitted = False
+    requestList = Request.objects.all()
     if request.method == 'POST':
         form = RequestForm(request.POST, request.FILES)
         if form.is_valid():
-            #form.save()
+            # form.save()
             requests = form.save(commit=False)
             try:
                 requests.username = request.user
             except Exception:
                 pass
             requests.save()
-            return HttpResponseRedirect('/requestbook?submitted=True')
     else:
         form = RequestForm()
-        #if 'submitted' in request.GET:
+        # if 'submitted' in request.GET:
         #    submitted = True
     return render(request,
-                    'bookMng/requestbook.html',
-                    {
-                        'form': form,
-                        'item_list': MainMenu.objects.all(),
-                        #'submitted': submitted
-                    })
+                  'bookMng/requestbook.html',
+                  {
+                      'form': form,
+                      'item_list': MainMenu.objects.all(),
+                      'requests': requestList,
+                  })
 
 @login_required(login_url=reverse_lazy('login'))
 def bookrequests(request):
@@ -167,11 +166,7 @@ def bookrequests(request):
 def request_delete(request, request_id):
     requests = Request.objects.get(id=request_id)
     requests.delete()
-    return render(request,
-        'bookMng/request_delete.html',
-        {
-            'item_list': MainMenu.objects.all(),
-        })
+    return redirect("requestbook")
 
 @login_required(login_url=reverse_lazy('login'))
 def book_detail(request, book_id):

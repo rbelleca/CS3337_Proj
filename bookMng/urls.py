@@ -17,3 +17,4 @@ urlpatterns = [
     path('cart_delete/<int:cart_id>', views.cart_delete, name='cart_delete'),
 ]
 
+
