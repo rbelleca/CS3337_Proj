@@ -10,14 +10,29 @@
     <h1> Welcome to BookHub! </h1>
 </div>
 
+<div class="text-center mt-5">
+    <h2> Book of the Day </h2>
+    <center><img src="{% static book.pic_path %}" width="200" height="240"></center>
+    <p> This books is currently sold by: {{book.username}}</p>
+</div>
+
 <div id="player">
     <audio autoplay hidden>
      <source src="{% static 'bookHubIntro.mp3' %}" type="audio/mpeg">
                 If you're reading this, the audio isn't supported.
     </audio>
 </div>
-
 {% endblock main_content %}
+
+{% block footer %}
+<div>
+    <center><img src="{% static 'ads.jpg' %}" width="800" height="150"></center>
+    <br><br><br><br>
+    <footer class="text-center fixed-bottom mb-5 fixed-bottom" id="footer"> CS3337 Django Web System </footer>
+
+</div>
+{% endblock footer %}
+
 <!--{% block content %}-->
 <!--<h1 align="center"> Welcome to Book Exchange System </h1>-->
 <!--{% endblock content %}-->
