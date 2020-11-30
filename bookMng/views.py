@@ -69,6 +69,7 @@ def index(request):
 @login_required(login_url=reverse_lazy('login'))
 def postbook(request):
     submitted = False
+    #What
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
         if form.is_valid():
