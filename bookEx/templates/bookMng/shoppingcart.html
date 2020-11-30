@@ -66,10 +66,13 @@ Shopping Cart
     {% endif %}
     <tr>
         <td colspan="3">Total</td>
-        <td>${{totalPrice}}</td>
+        {% if totalPrice == None %}
+        <td>$ 0</td>
+        {% else %}
+        <td>$ {{totalPrice}}</td>
+        {% endif %}
     </tr>
 </table>
 
-<!--<h2>Total Price: ${{ totalPrice }}</h2>-->
 {% endblock main_content %}
 

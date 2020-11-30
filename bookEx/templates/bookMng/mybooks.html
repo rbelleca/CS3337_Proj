@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-   My Books
+    My Books Book
 {% endblock title %}
 
 {% block logo %}
@@ -12,22 +12,26 @@
 {% endblock logo%}
 
 {% block navbar_item %}
-    <li class="nav-item">
-        <a class="nav-link" href="/displaybooks">Display Books</a>
+    <li class="nav-item active">
+        <a class="nav-link text-primary" href="/displaybooks">Display Books</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/requestbook">Request Books</a>
     </li>
-    <li class="nav-item active">
-        <a class="nav-link text-primary" href="/mybooks">Profile</a>
+    <li class="nav-item">
+        <a class="nav-link" href="/mybooks">Profile</a>
     </li>
+
+
 {% endblock navbar_item %}
 
 {% block main_content %}
+
 <div class="text-center">
     <h2> My Books </h2>
-    <p> These are the books you are currently selling. <br>Click on the title of the book for more details.</p>
+<!--    <p> You can sell your book here. Your entry will automatically be entered in the market. Thank you!</p>-->
 </div>
+
 <table class="table table-striped table-bordered mx-auto" align="center" border="2">
     <thead class="thead-light">
         <tr>
@@ -62,4 +66,6 @@
     {% endfor %}
     {% endif %}
 </table>
+
 {% endblock main_content %}
+
