@@ -10,7 +10,6 @@ urlpatterns = [
     path('displaybooks', views.displaybooks, name='displaybooks'),
     path('mybooks', views.mybooks, name='mybooks'),
     path('requestbook', views.requestbook, name='requestbook'),
-    path('bookrequests', views.bookrequests, name='bookrequests'),
     path('request_delete/<int:request_id>', views.request_delete, name='request_delete'),
     path('book_addCart/<int:book_id>', views.book_addCart, name='book_addCart'),
     path('shoppingcart', views.shoppingcart, name='shoppingcart'),
