@@ -153,16 +153,6 @@ def requestbook(request):
                   })
 
 @login_required(login_url=reverse_lazy('login'))
-def bookrequests(request):
-    requests = Request.objects.all()
-    return render(request,
-        'bookMng/bookrequests.html',
-        {
-            'item_list': MainMenu.objects.all(),
-            'requests': requests
-        })
-
-@login_required(login_url=reverse_lazy('login'))
 def request_delete(request, request_id):
     requests = Request.objects.get(id=request_id)
     requests.delete()
