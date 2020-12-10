@@ -5,6 +5,12 @@
 Book Requests
 {% endblock title%}
 
+{% block logo %}
+<a class="navbar-brand" href="/">
+<img src= "{% static 'logoHorz.png' %}" class="" style="width: 100px">
+</a>
+{% endblock logo%}
+
 {% block navbar_item %}
     <li class="nav-item">
         <a class="nav-link" href="/displaybooks">Display Books</a>
